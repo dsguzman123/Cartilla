@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creciendo con Alas: Acompañando la Transición Armónica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #ffe0e0, #e0f7fa); /* Degradado suave */
+            /* Nuevo fondo: elementos de aprendizaje sutiles */
+            background-image: url('data:image/svg+xml,%3Csvg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d6eef7" fill-opacity="0.5"%3E%3Cpath d="M20 0L0 20V0h20zM0 40h20V20L0 40zm40 40L20 60V80h20zm20-40L40 0h20v20L60 0zm0 40L40 80h20V60L60 40zM40 0L20 20V0h20zm0 40L20 60V40h20zM60 20L40 40V20h20zm0 40L40 80V60h20zM80 20L60 40V20h20zm0 40L60 80V60h20z" fill="%23b2ebf2"/%3E%3Cpath d="M10 20c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10zm0 40c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10zm20-20c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10zM50 20c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10zm0 40c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10zM70 20c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10zm0 40c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10z" fill="%23cfe8f3"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); /* Fondo con elementos de aprendizaje */
+            background-repeat: repeat;
+            background-attachment: fixed; /* Mantiene el fondo fijo al hacer scroll */
+            color: #333;
+        }
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative; /* Necesario para el z-index */
+            z-index: 1;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px; /* Reduje el margen inferior del header */
+            padding-bottom: 25px;
+            border-bottom: 3px solid #ffab91; /* Naranja pastel */
+        }
+        header img {
+            max-width: 180px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff7043; /* Naranja vibrante */
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+        header p {
+            color: #66bb6a; /* Verde brillante */
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Introducción */
+        .introduction {
+            background-color: #fffde7; /* Amarillo muy claro */
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #fdd835; /* Amarillo más intenso */
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Estilos para las secciones de acordeón */
+        .accordion-item {
+            margin-bottom: 20px;
+            border: 1px solid #b2ebf2; /* Azul claro */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .accordion-header {
+            background-color: #81d4fa; /* Azul cielo más suave */
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+            transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover {
+            background-color: #4fc3f7; /* Un tono un poco más oscuro al pasar el ratón */
+        }
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-header::after {
+            content: '-';
+            transform: rotate(0deg);
+        }
+        .accordion-content {
+            padding: 20px;
+            background-color: #e3f2fd; /* Azul muy claro para el contenido */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            border-radius: 0 0 10px 10px;
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 800px; /* Suficientemente grande para contener el contenido */
+            padding: 20px;
+        }
+
+        /* Contenido de las secciones */
+        section h2 {
+            color: #0288d1; /* Azul oscuro */
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #90caf9; /* Azul claro */
+        }
+        section ul {
+            list-style: none;
+            padding: 0;
+        }
+        section ul li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1em;
+        }
+        section ul li::before {
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+        .checklist-item::before { content: '✅'; color: #4caf50; }
+        .idea-item::before { content: '💡'; color: #ffeb3b; }
+        .activity-item::before { content: '🎨'; color: #ff9800; }
+        .phrase-item::before { content: '🗣️'; color: #9c27b0; }
+        .ally-item::before { content: '🤝'; color: #673ab7; }
+
+        .remember-section {
+            background-color: #c8e6c9; /* Verde muy claro */
+            border-left: 6px solid #4caf50; /* Verde vibrante */
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #2e7d32; /* Verde oscuro */
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .download-button-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .download-button {
+            background-color: #4caf50; /* Verde brillante */
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 30px; /* Botón más redondeado */
+            font-size: 1.3em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .download-button:hover {
+            background-color: #66bb6a; /* Verde más claro al pasar el ratón */
+            transform: translateY(-2px);
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px dashed #bdbdbd;
+            color: #777;
+            font-size: 0.95em;
+        }
+        .creators-info {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Estilos para impresión (para la descarga a PDF) */
+        @media print {
+            body {
+                background: #fff;
+                color: #000;
+                background-image: none; /* Eliminar fondo en la impresión */
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                max-width: none;
+            }
+            .download-button-container, footer {
+                display: none;
+            }
+            .accordion-item, .accordion-header {
+                border: none;
+                background-color: #fff !important;
+                color: #000 !important;
+                padding: 0;
+                box-shadow: none;
+            }
+            .accordion-header::after {
+                display: none;
+            }
+            .accordion-content {
+                max-height: none !important;
+                padding: 10px 0 !important;
+                border-radius: 0;
+                background-color: #fff !important;
+            }
+            section h2 {
+                color: #000;
+                border-bottom: 1px solid #ccc;
+            }
+            .highlight-box, .remember-section, .introduction {
+                background-color: #f8f9fa; /* Gris muy claro para estas secciones */
+                border-left: none;
+                padding: 15px;
+                color: #333;
+            }
+            ul li::before {
+                margin-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://imgur.com/tWKuJkn.png" alt="Logo de la Cartilla Creciendo con Alas">
+            <h1>Creciendo con Alas: Acompañando la Transición Armónica de Niñas y Niños</h1>
+            <p>Una guía interactiva y llena de color para padres y cuidadores.</p>
+        </header>
+
+        <div class="introduction">
+            <p>Bienvenidas y bienvenidos a esta cartilla interactiva para familias y cuidadores: aquí encontrarán orientaciones prácticas y amorosas para acompañar a sus niñas y niños en el paso del hogar o espacios de cuidado hacia la educación formal. Incluye estrategias, ideas, frases clave, actividades lúdicas y consejos útiles que fortalecerán la seguridad, la autoestima y la curiosidad de los pequeños en este momento tan importante de sus vidas.</p>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    🌱 ¿Qué es la transición armónica?
+                </div>
+                <div class="accordion-content">
+                    <p>Es el proceso en el que niñas y niños pasan de un entorno de cuidado familiar o comunitario (como el hogar o el CDI) a espacios de mayor complejidad como el preescolar o la educación básica.</p>
+                    <p>Esta transición debe ser **acompañada con amor, respeto y preparación** para garantizar el bienestar y desarrollo integral de los pequeños.</p>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic; color: #555;">¡Un nuevo mundo de aprendizaje los espera!</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    🌟 ¿Por qué es importante acompañar esta etapa?
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li class="checklist-item">Porque los **cambios generan emociones** que deben ser acompañadas y validadas.</li>
+                        <li class="checklist-item">Porque las niñas y niños necesitan **continuidad en los afectos y rutinas** para sentirse seguros.</li>
+                        <li class="checklist-item">Porque con el acompañamiento adecuado se **fortalece su autoestima, seguridad y deseo por aprender**, creando una base sólida para el futuro.</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic; color: #555;">Comprender sus sentimientos es el primer paso.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    🏠 ¿Cómo podemos acompañar desde casa?
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li class="idea-item"><strong>Habla con tu hijo o hija sobre el cambio:</strong> Cuéntale qué es la escuela, quiénes estarán allí, cuáles serán las rutinas y por qué es un paso emocionante. ¡Hazlo una aventura!</li>
+                        <li class="idea-item"><strong>Realicen visitas juntos:</strong> Si es posible, visiten la escuela antes de empezar. Permítele conocer su aula, baño, patio y maestros. La familiaridad reduce el miedo.</li>
+                        <li class="idea-item"><strong>Crea objetos transicionales:</strong> Un dibujo, una foto familiar o un peluche que lo acompañe al nuevo espacio le puede brindar seguridad y un vínculo con el hogar.</li>
+                        <li class="idea-item"><strong>Mantengan rutinas estables:</strong> Las rutinas brindan seguridad. Establece horarios de sueño, comida y juego similares a los que tendrá en la escuela.</li>
+                        <li class="idea-item"><strong>Escucha sus emociones:</strong> Valida sus miedos, alegrías o dudas. Frases como "te entiendo" o "a mí también me pasó" ayudan mucho a que se sientan comprendidos.</li>
+                        <li class="idea-item"><strong>Vincúlate con los educadores:</strong> Ellos son aliados clave en este proceso. Comparte información importante sobre tu hijo o hija para una mejor colaboración.</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic; color: #555;">El diálogo abierto es fundamental.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    🎉 Actividades sugeridas para hacer en familia
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li class="activity-item"><strong>Álbum de mi historia:</strong> Haz un cuaderno con fotos, dibujos y anécdotas desde su nacimiento hasta hoy. ¡Un viaje por sus recuerdos!</li>
+                        <li class="activity-item"><strong>Jugamos a la escuela:</strong> Jueguen simbólicamente a que ya está en el nuevo espacio. Ensayen rutinas, saludos, canciones. Esto les ayuda a procesar el cambio.</li>
+                        <li class="activity-item"><strong>Mi rincón de los recuerdos:</strong> Crea un espacio en casa con objetos de su CDI, hogar o anteriores espacios de cuidado. Un lugar para la nostalgia positiva.</li>
+                        <li class="activity-item"><strong>Diario de emociones:</strong> Dibuja juntos cómo se sienten en cada paso del proceso. Una forma creativa de expresar sus sentimientos.</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic; color: #555;">Momentos de conexión que fortalecen.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    💬 Frases clave para acompañar el tránsito
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li class="phrase-item">"Es normal sentir nervios cuando algo cambia. **Estoy contigo**."</li>
+                        <li class="phrase-item">"Vamos a **descubrir cosas nuevas** y estaré para ayudarte."</li>
+                        <li class="phrase-item">"Tú puedes con esto, porque **eres valiente y curioso(a)**."</li>
+                        <li class="phrase-item">"Cada día **aprenderás algo nuevo** y eso es maravilloso."</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic; color: #555;">Tus palabras son su motor.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    🤝 Aliados en este proceso
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li class="ally-item">**Docentes y directivos** de la institución educativa: Son tus principales aliados en la escuela.</li>
+                        <li class="ally-item">**Agentes educativos** del CDI u hogar comunitario: Quienes ya conocen a tu hijo y su proceso.</li>
+                        <li class="ally-item">**Otros padres y madres** que viven la misma etapa: Compartir experiencias es muy valioso.</li>
+                        <li class="ally-item">**Instituciones del entorno:** ICBF, alcaldía, Secretaría de Educación, etc., pueden brindar apoyo adicional.</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; font-style: italic; color: #555;">¡Juntos, hacemos la diferencia!</p>
+                </div>
+            </div>
+        </div>
+        <section class="remember-section">
+            <p>¡Recuerda!</p>
+            <p>La transición armónica no es un momento, es un proceso. Con tu acompañamiento amoroso, tu hija o hijo crecerá con alas fuertes para volar hacia nuevas experiencias.</p>
+            <p style="text-align: center; margin-top: 20px; font-style: italic; color: #2e7d32;">¡Ayúdales a desplegar sus alas y volar alto! 🚀</p>
+        </section>
+
+        <div class="download-button-container">
+            <a href="#" class="download-button" onclick="window.print(); return false;">Descargar Cartilla como PDF</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025. Cartilla "Creciendo con Alas". Todos los derechos reservados.</p>
+            <p class="creators-info">Desarrollado por el componente pedagógico conformado por: **Aseneth Arcos, Richard Cañas, Cindy Castro**.</p>
+            <p>Diseñado con ❤️ para el bienestar de la primera infancia.</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript para la funcionalidad de los acordeones
+        document.addEventListener('DOMContentLoaded', () => {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordionItem = header.parentElement;
+                    accordionItem.classList.toggle('active');
+
+                    // Cierra otros acordeones cuando se abre uno nuevo (opcional)
+                    accordionHeaders.forEach(otherHeader => {
+                        const otherAccordionItem = otherHeader.parentElement;
+                        if (otherAccordionItem !== accordionItem && otherAccordionItem.classList.contains('active')) {
+                            otherAccordionItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
